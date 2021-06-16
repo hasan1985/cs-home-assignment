@@ -119,6 +119,46 @@
           }
         }
       }
+    },
+    "csha-ui-comp-lib": {
+      "projectType": "library",
+      "root": "projects/csha-ui-comp-lib",
+      "sourceRoot": "projects/csha-ui-comp-lib/src",
+      "prefix": "csha",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/csha-ui-comp-lib/tsconfig.lib.json",
+            "project": "projects/csha-ui-comp-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/csha-ui-comp-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/csha-ui-comp-lib/src/test.ts",
+            "tsConfig": "projects/csha-ui-comp-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/csha-ui-comp-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/csha-ui-comp-lib/tsconfig.lib.json",
+              "projects/csha-ui-comp-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "cs-home-assignment"
 }

@@ -14,7 +14,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@csha-ui-comp-lib": [
+        // "dist/csha-ui-comp-lib/csha-ui-comp-lib",
+        // "dist/csha-ui-comp-lib",
+        "projects/csha-ui-comp-lib/src/public-api" // point to src code that we don’t have to build lib before we build the project
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
