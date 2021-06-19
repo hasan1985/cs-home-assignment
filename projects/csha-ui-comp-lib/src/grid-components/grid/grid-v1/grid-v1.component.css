@@ -1,0 +1,61 @@
+
+table {
+    border-spacing: 0px;
+    min-width: 100%;
+}
+
+th {
+    background: white;
+    position: sticky;
+    top: 0;
+    text-align: left;
+    height: 50px;
+    border-bottom: 1px solid black;
+    padding: 0px 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+td {
+    height: 40px;
+    padding: 0px 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+tr:nth-child(even) td {
+    background: rgba(211, 211, 211, 0.219)
+}
+
+.container {
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+}
+
+/* 
+::-webkit-scrollbar is not supported by firefox.
+In that case the default scroll bar will appear which has a minor issue.
+That is scroll bar overlaps the grid header.
+Got idea from here - https://css-tricks.com/custom-scrollbars-in-webkit/
+*/
+.container::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.container::-webkit-scrollbar-track-piece:start:vertical {
+    margin-top: 50px; /* match with header height */
+    border-top: 1px solid black;
+}
+
+.container::-webkit-scrollbar-track-piece {
+    background-color: white; 
+}
+
+.container::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 10px;
+}

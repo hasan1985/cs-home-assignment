@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CshaUiCompLibComponent } from './csha-ui-comp-lib.component';
+import { CheckboxV1Component } from './checkbox-v1.component';
 
-describe('CshaUiCompLibComponent', () => {
-  let component: CshaUiCompLibComponent;
-  let fixture: ComponentFixture<CshaUiCompLibComponent>;
+describe('CheckboxV1Component', () => {
+  let component: CheckboxV1Component;
+  let fixture: ComponentFixture<CheckboxV1Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CshaUiCompLibComponent ]
+      declarations: [ CheckboxV1Component ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CshaUiCompLibComponent);
+    fixture = TestBed.createComponent(CheckboxV1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

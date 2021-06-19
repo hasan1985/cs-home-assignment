@@ -3,16 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CshaUiCompLibModule } from '@csha-ui-comp-lib';
+import { CheckboxV1Module, GridV1Module } from '@csha-ui-comp-lib';
+import { RowSelectorCellComponent } from './row-selector-cell.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RowSelectorCellComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CshaUiCompLibModule
+    GridV1Module,
+    CheckboxV1Module
   ],
   providers: [],
   bootstrap: [AppComponent]

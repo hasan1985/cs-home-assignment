@@ -1,0 +1,26 @@
+<div class="container">
+    <table>
+        <thead>
+            <th *ngFor="let columnConfig of columnConfigs">
+                <div class="test">{{columnConfig.displayName}}</div>
+            </th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rowData of data">
+                <td *ngFor="let columnConfig of columnConfigs">
+                    <ng-container *ngIf="columnConfig.columnType == columnType.text">
+                        {{rowData[columnConfig.dataField]}}
+                    </ng-container>
+                    <ng-container *ngIf="columnConfig.columnType === columnType.customCellRenderer">
+                        <csha-grid-cell-renderer-v1
+                            [cellData]=rowData[columnConfig.dataField]
+                            [rowData]=rowData
+                            [customComponent]=columnConfig.customCellConfig.cellComponent
+                            [callbackMap]=columnConfig.customCellConfig.callbackMap
+                        ></csha-grid-cell-renderer-v1>
+                    </ng-container>
+                </td>
+            </tr>
+        </tbody>
+      </table>
+</div>

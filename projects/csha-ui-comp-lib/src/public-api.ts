@@ -2,6 +2,5 @@
  * Public API Surface of csha-ui-comp-lib
  */
 
-export * from './lib/csha-ui-comp-lib.service';
-export * from './lib/csha-ui-comp-lib.component';
-export * from './lib/csha-ui-comp-lib.module';
+export * from './grid-components/grid/grid-v1/grid-v1.module';
+export * from './checkbox/checkbox-v1/checkbox-v1.module';
