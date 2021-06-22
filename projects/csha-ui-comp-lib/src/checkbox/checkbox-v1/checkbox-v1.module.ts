@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckboxV1Component } from './checkbox-v1.component';
 
-
-
 @NgModule({
   declarations: [
     CheckboxV1Component

@@ -1,72 +1,98 @@
-import { ThrowStmt } from '@angular/compiler';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { CheckboxCheckState } from './checkbox-v1.interfaces';
 
 @Component({
   selector: 'csha-checkbox-v1',
   template: `
-    <input #checkboxElement type="checkbox" (click)="onClick($event)" [disabled]="disabled">
+    <input 
+      #checkboxElement 
+      type="checkbox" 
+      (click)="onClick($event)"
+      [disabled]="disabled"
+      [ngStyle]="!disabled && {'cursor': 'pointer'}"
+    >
   `,
   styles: [
     `input {
-      width: 16px;
-      height: 16px
+      width: 18px;
+      height: 18px;
     }`
   ]
 })
-export class CheckboxV1Component implements AfterViewInit {
+export class CheckboxV1Component implements OnChanges, AfterViewInit {
 
-  @Input() disabled: boolean;
-  @Input() checkStates: CheckboxCheckState[] = [CheckboxCheckState.UNCHECKED, CheckboxCheckState.CHECKED]; // by default only checked and unchecked
-  @Output() onChange: EventEmitter<CheckboxCheckState> = new EventEmitter<CheckboxCheckState>();
+  @Input() public disabled: boolean = false;
+  @Input() public checkState: CheckboxCheckState = CheckboxCheckState.CHECKED;
+  @Output() public onChange: EventEmitter<CheckboxCheckState> = new EventEmitter<CheckboxCheckState>();
 
-  @ViewChild('checkboxElement') checkboxElement: ElementRef<HTMLInputElement>;
-  private currentCheckStateIndex: number = 0;
-  
+  @ViewChild('checkboxElement') private checkboxElement: ElementRef<HTMLInputElement>;
+  private currentCheckState: CheckboxCheckState;
+
   public ngAfterViewInit(): void {
-    this.updateCurrentCheckState();
+    this.initCurrentCheckState();
   }
 
+  public ngOnChanges(): void {
+    this.initCurrentCheckState();
+  }
+  
   public onClick(e: MouseEvent): void {
     e.stopImmediatePropagation();
-    this.rotateFromAvailableCheckStates();
-    this.updateCurrentCheckState();
-    this.onChange.emit(this.checkStates[this.currentCheckStateIndex]);
+    if (this.disabled) return;
+
+    if (this.currentCheckState !== CheckboxCheckState.UNCHECKED) {
+      // i.e. current state is CHECKED or INDETERMINATE then onclick will change it to UNCHECKED
+      this.currentCheckState = CheckboxCheckState.UNCHECKED;
+    } else {
+      // else current state is UNCHECKED and onclick will change it to CHECKED
+      this.currentCheckState = CheckboxCheckState.CHECKED
+    } // in this design onclick will never change the checkState to INDETERMINATE
+
+    this.updateInputElementByCurrentCheckState();
+    this.onChange.emit(this.currentCheckState);
   }
 
-  public markChecked(): void {
-    this.checkboxElement.nativeElement.checked = true;
-    this.checkboxElement.nativeElement.indeterminate = false;
+  private initCurrentCheckState(): void {
+    this.currentCheckState = this.checkState;
+    this.updateInputElementByCurrentCheckState();
   }
 
-  public markUnchecked(): void {
-    this.checkboxElement.nativeElement.checked = false;
-    this.checkboxElement.nativeElement.indeterminate = false;
+  private updateInputElementByCurrentCheckState(): void {
+    if (this.disabled === false) {
+      switch(this.currentCheckState) {
+        case CheckboxCheckState.UNCHECKED:
+          this.markUnchecked();
+          break;
+        case CheckboxCheckState.CHECKED:
+          this.markChecked();
+          break;
+        case CheckboxCheckState.INDETERMINATE:
+          this.markIndeterminate();
+          break;
+        default:
+          this.markUnchecked();
+      }
+    }
   }
 
-  public markIndeterminate(): void {
-    this.checkboxElement.nativeElement.checked = false;
-    this.checkboxElement.nativeElement.indeterminate = true;
+  private markChecked(): void {
+    if (this.checkboxElement?.nativeElement) {
+      this.checkboxElement.nativeElement.checked = true;
+      this.checkboxElement.nativeElement.indeterminate = false;
+    }
   }
 
-  private rotateFromAvailableCheckStates(): void {
-    this.currentCheckStateIndex = (this.currentCheckStateIndex + 1) % this.checkStates.length;
+  private markUnchecked(): void {
+    if (this.checkboxElement?.nativeElement) {
+      this.checkboxElement.nativeElement.checked = false;
+      this.checkboxElement.nativeElement.indeterminate = false;
+    }
   }
 
-  private updateCurrentCheckState(): void {
-    const state: CheckboxCheckState = this.checkStates[this.currentCheckStateIndex];
-    switch(state) {
-      case CheckboxCheckState.UNCHECKED:
-        this.markUnchecked();
-        break;
-      case CheckboxCheckState.CHECKED:
-        this.markChecked();
-        break;
-      case CheckboxCheckState.INDETERMINATE:
-        this.markIndeterminate();
-        break;
-      default:
-        this.markUnchecked();
+  private markIndeterminate(): void {
+    if (this.checkboxElement?.nativeElement) {
+      this.checkboxElement.nativeElement.checked = false;
+      this.checkboxElement.nativeElement.indeterminate = true;
     }
   }
 }

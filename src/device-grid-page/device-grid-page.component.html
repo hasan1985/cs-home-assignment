@@ -1,0 +1,27 @@
+<div class="full-page-container">
+
+    <div class="grid-top-bar">
+        <div style="display: inline-block; padding: 6px 10px; width: 246px;">
+            <csha-grid-row-selection-count-v1 #selectionCountComponent></csha-grid-row-selection-count-v1>    
+        </div>
+        
+        <div style="display: inline-block; padding: 6px 10px">
+            <csha-download-button-v1 
+              (onDownloadSelectedClick)="onDownloadSelectedClick()"
+              [buttonText]="'Downlaod Selected'">
+            </csha-download-button-v1>
+        </div>
+    </div>
+    
+    <div class="grid-container">
+        <csha-grid-v1        
+            [rowSelectionCountComponent]=selectionCountComponent
+            [columnConfigs]=gridColumnConfig
+            [gridData]=gridData
+            [showRowSelectionCheckbox]=true
+            [getRowSelectibility]=getRowSelectibility
+            (onRowSelectionChange)=onRowSelectionChange($event)
+       ></csha-grid-v1>
+    </div>
+
+</div>

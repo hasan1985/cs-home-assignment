@@ -10,7 +10,7 @@ th {
     top: 0;
     text-align: left;
     height: 50px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgba(211, 211, 211, 0.800);
     padding: 0px 14px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -26,13 +26,23 @@ td {
 }
 
 tr:nth-child(even) td {
-    background: rgba(211, 211, 211, 0.219)
+    background: rgba(211, 211, 211, 0.25)
+}
+
+tr:hover {
+    background-color: rgba(0, 0, 255, 0.2);
+  }
+
+.selectedRow {
+    background: rgba(128, 128, 128, 0.5)
 }
 
 .container {
     overflow: auto;
     height: 100%;
     width: 100%;
+    border: 1px solid rgba(211, 211, 211, 0.800);
+    box-sizing: border-box;
 }
 
 /* 
@@ -48,7 +58,7 @@ Got idea from here - https://css-tricks.com/custom-scrollbars-in-webkit/
 
 .container::-webkit-scrollbar-track-piece:start:vertical {
     margin-top: 50px; /* match with header height */
-    border-top: 1px solid black;
+    border-top: 1px solid rgba(211, 211, 211, 0.600);
 }
 
 .container::-webkit-scrollbar-track-piece {

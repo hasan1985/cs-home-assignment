@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    align-items: center;
+    padding: 4px;
+}
+
+.container > * {
+    margin-right: 10px;
+}

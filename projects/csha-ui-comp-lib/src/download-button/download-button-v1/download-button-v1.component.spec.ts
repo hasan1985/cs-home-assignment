@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GridV1Component } from './grid-v1.component';
+import { DownloadButtonV1Component } from './download-button-v1.component';
 
-describe('GridV1Component', () => {
-  let component: GridV1Component<any>;
-  let fixture: ComponentFixture<GridV1Component<any>>;
+describe('DownloadButtonV1Component', () => {
+  let component: DownloadButtonV1Component;
+  let fixture: ComponentFixture<DownloadButtonV1Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GridV1Component ]
+      declarations: [ DownloadButtonV1Component ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GridV1Component);
+    fixture = TestBed.createComponent(DownloadButtonV1Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

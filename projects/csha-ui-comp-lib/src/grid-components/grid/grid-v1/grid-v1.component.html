@@ -1,17 +1,26 @@
 <div class="container">
     <table>
         <thead>
+            <th *ngIf="showRowSelectionCheckbox">                
+            </th>
             <th *ngFor="let columnConfig of columnConfigs">
                 <div class="test">{{columnConfig.displayName}}</div>
             </th>
         </thead>
         <tbody>
-            <tr *ngFor="let rowData of data">
+            <tr *ngFor="let rowData of gridData" [ngClass]="{'selectedRow' : isRowSelected(rowData)}">
+                <td *ngIf="showRowSelectionCheckbox">
+                    <csha-checkbox-v1
+                        [disabled]=rowSelectionStateMap[rowData.rowId].selectionDisabled
+                        [checkState]=rowSelectionStateMap[rowData.rowId].selectionState
+                        (onChange)=onRowSelectionCheckboxChange(rowData,$event)
+                    ></csha-checkbox-v1>
+                </td>
                 <td *ngFor="let columnConfig of columnConfigs">
-                    <ng-container *ngIf="columnConfig.columnType == columnType.text">
+                    <ng-container *ngIf="columnConfig.columnType == columnTypeEnum.text">
                         {{rowData[columnConfig.dataField]}}
                     </ng-container>
-                    <ng-container *ngIf="columnConfig.columnType === columnType.customCellRenderer">
+                    <ng-container *ngIf="columnConfig.columnType === columnTypeEnum.customCellRenderer">
                         <csha-grid-cell-renderer-v1
                             [cellData]=rowData[columnConfig.dataField]
                             [rowData]=rowData
